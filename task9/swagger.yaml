@@ -1,25 +1,587 @@
+---
 swagger: "2.0"
 info:
-  description: "The description of API of NextDoor Farm HSE ASD Project"
-  version: "1.0.0"
-  title: "Swagger NextDoor Farm"
-  termsOfService: "http://swagger.io/terms/"
+  description: The description of API of NextDoor Farm HSE ASD Project
+  version: 1.0.0
+  title: Swagger NextDoor Farm
+  termsOfService: http://swagger.io/terms/
   contact:
-    email: "apiteam@swagger.io"
+    email: apiteam@swagger.io
   license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "nextdoorfarm.notion.site"
-basePath: "/v1"
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: virtserver.swaggerhub.com
+basePath: /NextDoorFarm/NextDoorFarm/1.0.0
 tags:
-  - name: "Customers"
-    description: "Customer CRUD operations"
+- name: Customers
+  description: Customer CRUD operations
+- name: Orders
+  description: Orders CRUD operations
+- name: Farmers
+  description: Farmers CRUD operations
+- name: Products
+  description: Products CRUD operations
 schemes:
-  - "https"
-  - "http"
+- https
+- http
 paths:
-# TODO
-
+  /customers:
+    get:
+      tags:
+      - Customers
+      summary: Return customer by id, extracted from JWT token
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/CustomerAndOrders'
+    put:
+      tags:
+      - Customers
+      summary: Update customer by id, extracted from JWT token
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: CustomerDto
+        description: Customer object
+        required: true
+        schema:
+          $ref: '#/definitions/Customer'
+      responses:
+        "200":
+          description: Successful edit
+          schema:
+            $ref: '#/definitions/CustomerAndOrders'
+    delete:
+      tags:
+      - Customers
+      summary: Deletes customer by id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: DeleteById
+        description: Deleting customer by id
+        required: true
+        schema:
+          $ref: '#/definitions/DeleteById'
+      responses:
+        "200":
+          description: Successful deletion
+          schema:
+            $ref: '#/definitions/CustomerAndOrders'
+  /orders:
+    put:
+      tags:
+      - Orders
+      summary: Add new product to customer's order.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Product in Order object that is created
+        required: true
+        schema:
+          $ref: '#/definitions/OrderProduct'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Order'
+    delete:
+      tags:
+      - Orders
+      summary: Delete specified amount of products from customer's order.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Amount of product in Order object that is created
+        required: true
+        schema:
+          $ref: '#/definitions/OrderProduct'
+      responses:
+        "200":
+          description: successful opetion
+          schema:
+            $ref: '#/definitions/Order'
+  /orders/submit:
+    post:
+      tags:
+      - Orders
+      summary: Change status of the order to 'submitted'.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Order ID
+        required: true
+        schema:
+          $ref: '#/definitions/Order'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Order'
+  /orders/cancel:
+    post:
+      tags:
+      - Orders
+      summary: Change status of the order to 'canceled'.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Order ID
+        required: true
+        schema:
+          $ref: '#/definitions/Order'
+      responses:
+        "200":
+          description: successful opetion
+          schema:
+            $ref: '#/definitions/Order'
+  /farmers:
+    get:
+      tags:
+      - Farmers
+      summary: Return farmer by id, extracted from JWT token. Products will be displayed on the same screen as farmer.
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/FarmerAndProducts'
+    put:
+      tags:
+      - Farmers
+      summary: Update farmer by id, extracted from JWT token.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: Farmer
+        description: Farmer object
+        required: true
+        schema:
+          $ref: '#/definitions/Farmer'
+      responses:
+        "200":
+          description: Successful edit
+          schema:
+            $ref: '#/definitions/FarmerAndProducts'
+    delete:
+      tags:
+      - Farmers
+      summary: Deletes farmer by id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: DeleteById
+        description: Deleting farmer by id
+        required: true
+        schema:
+          $ref: '#/definitions/DeleteById_1'
+      responses:
+        "200":
+          description: Successful deletion
+          schema:
+            $ref: '#/definitions/FarmerAndProducts'
+  /products:
+    get:
+      tags:
+      - Products
+      summary: Return a list of available products
+      produces:
+      - application/json
+      parameters:
+      - name: limit
+        in: query
+        description: Limits the number of returned results
+        required: false
+        type: integer
+        format: int32
+      - name: offset
+        in: query
+        description: Offset from which start returned results
+        required: false
+        type: integer
+        format: int32
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/AllProducts'
+    post:
+      tags:
+      - Products
+      summary: Create a product for a farmer
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Product description
+        required: true
+        schema:
+          $ref: '#/definitions/ProductCreation'
+      responses:
+        "200":
+          description: Successful opetion
+          schema:
+            $ref: '#/definitions/FormedProduct'
+    put:
+      tags:
+      - Products
+      summary: Update a product for a farmer
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: Product
+        description: Product object
+        required: true
+        schema:
+          $ref: '#/definitions/Product'
+      responses:
+        "200":
+          description: Successful edit
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Product not found
+          schema:
+            $ref: '#/definitions/FormedProduct'
+  /products/{productId}:
+    get:
+      tags:
+      - Products
+      summary: Return a product information by id
+      parameters:
+      - name: productId
+        in: path
+        description: Id of a product to return
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: Successful operation
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Product not found
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FormedProduct'
+    delete:
+      tags:
+      - Products
+      summary: Delete a product by id
+      parameters:
+      - name: productId
+        in: path
+        description: Id of a product to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: Successful operation
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Product not found
+definitions:
+  Product:
+    type: object
+    required:
+    - name
+    properties:
+      productId:
+        type: integer
+        format: int64
+      name:
+        type: string
+        example: carrot
+      description:
+        type: string
+        example: fresh carrot
+      pricePerKg:
+        type: integer
+        example: 40
+      imageLink:
+        type: array
+        xml:
+          name: imageLink
+          wrapped: true
+        items:
+          type: string
+      amount:
+        type: integer
+        example: 30
+    xml:
+      name: Product
+  OrderProduct:
+    type: object
+    required:
+    - productId
+    properties:
+      productId:
+        type: integer
+        format: int64
+      amount:
+        type: integer
+        format: int32
+    xml:
+      name: OrderProduct
+  Order:
+    type: object
+    required:
+    - id
+    properties:
+      id:
+        type: integer
+        format: int64
+      status:
+        type: string
+        format: string
+      products:
+        type: array
+        items:
+          $ref: '#/definitions/Product'
+  Farmer:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 1
+      firstName:
+        type: string
+        example: Kate
+      lastName:
+        type: string
+        example: Popova
+      address:
+        type: string
+        example: Moscow, Req Square
+      username:
+        type: string
+        example: kate
+      email:
+        type: string
+        example: kate@yandex.ru
+      phone:
+        type: string
+        example: +79999542153
+      description:
+        type: string
+        example: Info
+      rating:
+        type: integer
+        format: int32
+        example: 1
+  FarmerAndProducts:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 1
+      firstName:
+        type: string
+        example: Kate
+      lastName:
+        type: string
+        example: Popova
+      address:
+        type: string
+        example: Moscow, Req Square
+      username:
+        type: string
+        example: kate
+      email:
+        type: string
+        example: kate@yandex.ru
+      phone:
+        type: string
+        example: +79999542153
+      orders:
+        type: array
+        items:
+          $ref: '#/definitions/Product'
+  ProductCreation:
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        type: string
+        example: carrot
+      description:
+        type: string
+        example: fresh carrot
+      pricePerKg:
+        type: integer
+        example: 40
+      imageLink:
+        type: array
+        xml:
+          name: imageLink
+          wrapped: true
+        items:
+          type: string
+      amount:
+        type: integer
+        example: 30
+  FormedProduct:
+    type: object
+    required:
+    - name
+    properties:
+      productId:
+        type: integer
+        format: int32
+        example: 1
+      name:
+        type: string
+        example: carrot
+      description:
+        type: string
+        example: fresh carrot
+      pricePerKg:
+        type: integer
+        example: 40
+      imageLink:
+        type: array
+        xml:
+          name: imageLink
+          wrapped: true
+        items:
+          type: string
+      amount:
+        type: integer
+        example: 30
+      farmerId:
+        type: integer
+        format: int32
+        example: 1
+  AllProducts:
+    type: array
+    items:
+      $ref: '#/definitions/FormedProduct'
+  Customer:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 1
+      firstName:
+        type: string
+        example: Ivan
+      lastName:
+        type: string
+        example: Ivanov
+      address:
+        type: string
+        example: Moscow, Kremlin
+      username:
+        type: string
+        example: ivan
+      email:
+        type: string
+        example: ivan@yandex.ru
+      phone:
+        type: string
+        example: +79999542153
+  CustomerAndOrders:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 1
+      firstName:
+        type: string
+        example: Ivan
+      lastName:
+        type: string
+        example: Ivanov
+      address:
+        type: string
+        example: Moscow, Kremlin
+      username:
+        type: string
+        example: ivan
+      email:
+        type: string
+        example: ivan@yandex.ru
+      phone:
+        type: string
+        example: +79999542153
+      orders:
+        type: array
+        items:
+          $ref: '#/definitions/Order'
+  DeleteById:
+    type: object
+    properties:
+      id:
+        type: integer
+  DeleteById_1:
+    type: object
+    properties:
+      id:
+        type: integer
+parameters:
+  limitParam:
+    name: limit
+    in: query
+    description: Limits the number of returned results
+    required: false
+    type: integer
+    format: int32
+  offsetParam:
+    name: offset
+    in: query
+    description: Offset from which start returned results
+    required: false
+    type: integer
+    format: int32
 externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+  description: Find out more about Swagger
+  url: http://swagger.io
