@@ -13,25 +13,27 @@ info:
 host: virtserver.swaggerhub.com
 basePath: /NextDoorFarm/NextDoorFarm/1.0.0
 tags:
-- name: Customers
-  description: Customer CRUD operations
-- name: Orders
-  description: Orders CRUD operations
-- name: Farmers
-  description: Farmers CRUD operations
-- name: Products
-  description: Products CRUD operations
+  - name: Customers
+    description: Customer CRUD operations
+  - name: Orders
+    description: Orders CRUD operations
+  - name: Farmers
+    description: Farmers CRUD operations
+  - name: Products
+    description: Products CRUD operations
+  - name: Notifications
+    description: Notifications CRUD operations
 schemes:
-- https
-- http
+  - https
+  - http
 paths:
   /customers:
     get:
       tags:
-      - Customers
+        - Customers
       summary: Return customer by id, extracted from JWT token
       produces:
-      - application/json
+        - application/json
       parameters: []
       responses:
         "200":
@@ -40,19 +42,19 @@ paths:
             $ref: '#/definitions/CustomerAndOrders'
     put:
       tags:
-      - Customers
+        - Customers
       summary: Update customer by id, extracted from JWT token
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: CustomerDto
-        description: Customer object
-        required: true
-        schema:
-          $ref: '#/definitions/Customer'
+        - in: body
+          name: CustomerDto
+          description: Customer object
+          required: true
+          schema:
+            $ref: '#/definitions/Customer'
       responses:
         "200":
           description: Successful edit
@@ -60,19 +62,19 @@ paths:
             $ref: '#/definitions/CustomerAndOrders'
     delete:
       tags:
-      - Customers
+        - Customers
       summary: Deletes customer by id
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: DeleteById
-        description: Deleting customer by id
-        required: true
-        schema:
-          $ref: '#/definitions/DeleteById'
+        - in: body
+          name: DeleteById
+          description: Deleting customer by id
+          required: true
+          schema:
+            $ref: '#/definitions/DeleteById'
       responses:
         "200":
           description: Successful deletion
@@ -81,19 +83,19 @@ paths:
   /orders:
     put:
       tags:
-      - Orders
+        - Orders
       summary: Add new product to customer's order.
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: body
-        description: Product in Order object that is created
-        required: true
-        schema:
-          $ref: '#/definitions/OrderProduct'
+        - in: body
+          name: body
+          description: Product in Order object that is created
+          required: true
+          schema:
+            $ref: '#/definitions/OrderProduct'
       responses:
         "200":
           description: successful operation
@@ -101,19 +103,19 @@ paths:
             $ref: '#/definitions/Order'
     delete:
       tags:
-      - Orders
+        - Orders
       summary: Delete specified amount of products from customer's order.
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: body
-        description: Amount of product in Order object that is created
-        required: true
-        schema:
-          $ref: '#/definitions/OrderProduct'
+        - in: body
+          name: body
+          description: Amount of product in Order object that is created
+          required: true
+          schema:
+            $ref: '#/definitions/OrderProduct'
       responses:
         "200":
           description: successful opetion
@@ -122,19 +124,19 @@ paths:
   /orders/submit:
     post:
       tags:
-      - Orders
+        - Orders
       summary: Change status of the order to 'submitted'.
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: body
-        description: Order ID
-        required: true
-        schema:
-          $ref: '#/definitions/Order'
+        - in: body
+          name: body
+          description: Order ID
+          required: true
+          schema:
+            $ref: '#/definitions/Order'
       responses:
         "200":
           description: successful operation
@@ -143,19 +145,19 @@ paths:
   /orders/cancel:
     post:
       tags:
-      - Orders
+        - Orders
       summary: Change status of the order to 'canceled'.
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: body
-        description: Order ID
-        required: true
-        schema:
-          $ref: '#/definitions/Order'
+        - in: body
+          name: body
+          description: Order ID
+          required: true
+          schema:
+            $ref: '#/definitions/Order'
       responses:
         "200":
           description: successful opetion
@@ -164,10 +166,10 @@ paths:
   /farmers:
     get:
       tags:
-      - Farmers
+        - Farmers
       summary: Return farmer by id, extracted from JWT token. Products will be displayed on the same screen as farmer.
       produces:
-      - application/json
+        - application/json
       parameters: []
       responses:
         "200":
@@ -176,19 +178,19 @@ paths:
             $ref: '#/definitions/FarmerAndProducts'
     put:
       tags:
-      - Farmers
+        - Farmers
       summary: Update farmer by id, extracted from JWT token.
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: Farmer
-        description: Farmer object
-        required: true
-        schema:
-          $ref: '#/definitions/Farmer'
+        - in: body
+          name: Farmer
+          description: Farmer object
+          required: true
+          schema:
+            $ref: '#/definitions/Farmer'
       responses:
         "200":
           description: Successful edit
@@ -196,19 +198,19 @@ paths:
             $ref: '#/definitions/FarmerAndProducts'
     delete:
       tags:
-      - Farmers
+        - Farmers
       summary: Deletes farmer by id
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: DeleteById
-        description: Deleting farmer by id
-        required: true
-        schema:
-          $ref: '#/definitions/DeleteById_1'
+        - in: body
+          name: DeleteById
+          description: Deleting farmer by id
+          required: true
+          schema:
+            $ref: '#/definitions/DeleteById_1'
       responses:
         "200":
           description: Successful deletion
@@ -217,23 +219,23 @@ paths:
   /products:
     get:
       tags:
-      - Products
+        - Products
       summary: Return a list of available products
       produces:
-      - application/json
+        - application/json
       parameters:
-      - name: limit
-        in: query
-        description: Limits the number of returned results
-        required: false
-        type: integer
-        format: int32
-      - name: offset
-        in: query
-        description: Offset from which start returned results
-        required: false
-        type: integer
-        format: int32
+        - name: limit
+          in: query
+          description: Limits the number of returned results
+          required: false
+          type: integer
+          format: int32
+        - name: offset
+          in: query
+          description: Offset from which start returned results
+          required: false
+          type: integer
+          format: int32
       responses:
         "200":
           description: Successful operation
@@ -241,19 +243,19 @@ paths:
             $ref: '#/definitions/AllProducts'
     post:
       tags:
-      - Products
+        - Products
       summary: Create a product for a farmer
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: body
-        description: Product description
-        required: true
-        schema:
-          $ref: '#/definitions/ProductCreation'
+        - in: body
+          name: body
+          description: Product description
+          required: true
+          schema:
+            $ref: '#/definitions/ProductCreation'
       responses:
         "200":
           description: Successful opetion
@@ -261,19 +263,19 @@ paths:
             $ref: '#/definitions/FormedProduct'
     put:
       tags:
-      - Products
+        - Products
       summary: Update a product for a farmer
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: Product
-        description: Product object
-        required: true
-        schema:
-          $ref: '#/definitions/Product'
+        - in: body
+          name: Product
+          description: Product object
+          required: true
+          schema:
+            $ref: '#/definitions/Product'
       responses:
         "200":
           description: Successful edit
@@ -286,15 +288,15 @@ paths:
   /products/{productId}:
     get:
       tags:
-      - Products
+        - Products
       summary: Return a product information by id
       parameters:
-      - name: productId
-        in: path
-        description: Id of a product to return
-        required: true
-        type: integer
-        format: int64
+        - name: productId
+          in: path
+          description: Id of a product to return
+          required: true
+          type: integer
+          format: int64
       responses:
         "200":
           description: Successful operation
@@ -308,15 +310,15 @@ paths:
               $ref: '#/definitions/FormedProduct'
     delete:
       tags:
-      - Products
+        - Products
       summary: Delete a product by id
       parameters:
-      - name: productId
-        in: path
-        description: Id of a product to delete
-        required: true
-        type: integer
-        format: int64
+        - name: productId
+          in: path
+          description: Id of a product to delete
+          required: true
+          type: integer
+          format: int64
       responses:
         "200":
           description: Successful operation
@@ -324,11 +326,81 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Product not found
+  /notifications:
+    get:
+      tags:
+        - Notifications
+      summary: Get notifications by userId (customer or farmer)
+      produces:
+        - application/json
+      parameters:
+        - name: "userId"
+          in: "query"
+          description: "User id to be considered for filter"
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/FarmerAndProducts'
+    post:
+      tags:
+        - Notifications
+      summary: Publish notification for customer and farmer
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/FarmerAndProducts'
+  /notifications/{notificationId}:
+    get:
+      tags:
+        - Notifications
+      summary: Get notification by id
+      produces:
+        - application/json
+      parameters:
+        - name: notificationId
+          in: path
+          description: Id of a notification item
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/FarmerAndProducts'
+    put:
+      tags:
+        - Notifications
+      summary: Update notification for customer and farmer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: notificationId
+          in: path
+          description: Id of a notification item
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Successful edit
+          schema:
+            $ref: '#/definitions/FarmerAndProducts'
 definitions:
   Product:
     type: object
     required:
-    - name
+      - name
     properties:
       productId:
         type: integer
@@ -357,7 +429,7 @@ definitions:
   OrderProduct:
     type: object
     required:
-    - productId
+      - productId
     properties:
       productId:
         type: integer
@@ -370,7 +442,7 @@ definitions:
   Order:
     type: object
     required:
-    - id
+      - id
     properties:
       id:
         type: integer
@@ -446,7 +518,7 @@ definitions:
   ProductCreation:
     type: object
     required:
-    - name
+      - name
     properties:
       name:
         type: string
@@ -470,7 +542,7 @@ definitions:
   FormedProduct:
     type: object
     required:
-    - name
+      - name
     properties:
       productId:
         type: integer
